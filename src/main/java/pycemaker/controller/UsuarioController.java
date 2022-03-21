@@ -1,10 +1,13 @@
-package com.app.pyce.controller;
+package pycemaker.controller;
 
-import com.app.pyce.model.Usuario;
-import com.app.pyce.repository.UsuarioRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import pycemaker.model.Usuario;
+import pycemaker.repository.UsuarioRepository;
 
 
 @RestController
@@ -28,7 +31,22 @@ public class UsuarioController {
         return ResponseEntity.ok(this.usuarioRepository.findAll());
     }
 
+    @GetMapping("/stress")
+    public String stressTest(){
+        try {
+            boolean condition = true;
+            while(condition){
+                Runnable r = () -> {
+                    while(true){
+                    }
+                };
+                new Thread(r).start();
+                Thread.sleep(5000);
+            }
+        } catch (Exception e) {
 
-
+        }
+        return "Stress";
+    }
 
 }

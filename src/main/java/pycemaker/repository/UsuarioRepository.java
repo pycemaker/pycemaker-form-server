@@ -1,6 +1,6 @@
-package com.app.pyce.repository;
+package pycemaker.repository;
 
-import com.app.pyce.model.Usuario;
+import pycemaker.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {

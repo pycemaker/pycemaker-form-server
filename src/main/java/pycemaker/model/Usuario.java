@@ -1,4 +1,4 @@
-package com.app.pyce.model;
+package pycemaker.model;
 
 
 import javax.persistence.Entity;
