@@ -2,14 +2,14 @@ package pycemaker.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pycemaker.model.Usuario;
 import pycemaker.repository.UsuarioRepository;
 
+import java.util.Optional;
 
+
+@CrossOrigin
 @RestController
 public class UsuarioController {
 
@@ -20,16 +20,24 @@ public class UsuarioController {
     }
 
     //Endpoint de Formulário
+    @CrossOrigin
     @PostMapping("/registrar")
     public Usuario saveUser(@Validated @RequestBody Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
     //Endpoint de listagem
+    @CrossOrigin
     @GetMapping("/usuarios")
     public ResponseEntity getAllUsuarios(){
         return ResponseEntity.ok(this.usuarioRepository.findAll());
     }
+
+    //@GetMapping("/usuario/{id}")
+    //public Optional<Usuario> consultar(@PathVariable("id") Long id){
+        //return usuarioRepository.findById(id);
+    //}
+
 
     @GetMapping("/stress")
     public String stressTest(){

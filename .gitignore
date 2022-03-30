@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+.prometheus-2.34.0.windows-amd64
+.grafana-8.4.4
+.python
+.pyce-tools/venv/
