@@ -10,11 +10,11 @@ from pymongo import MongoClient
 
 
 class Pycemaker:
-    def __init__(self, prom_url: str, db_host: str, db_port: int, db: str, collection: str):
+    def __init__(self, db_host: str, db_port: int, db: str, collection: str, prom_url=None) -> None:
         """Classe de gerenciamento das métricas de aplicações SpringBoot expostas pela API do Prometheus
 
         Args:
-            prom_url (str): URL da API do Prometheus
+            prom_url (str, optional): URL da API do Prometheus
             db_host (str): URL do client
             db_port (int): Porta do client
             db (str): Banco de dados selecionado
@@ -27,6 +27,7 @@ class Pycemaker:
         self.collection = collection
         self.client = MongoClient(host=self.db_host, port=int(self.db_port))
 
+    
     def __get_cpu_usage__(self) -> float:
         """Método de acesso ao uso de cpu em certo momento.
 
@@ -61,9 +62,10 @@ class Pycemaker:
         Returns:
             dict: Retorna um dicionário com o modelo preenchido com os dados obtidos.
         """
-        data = {"date": str(date.today().strftime("%d/%m/%Y")),
-                "time": str(datetime.now().strftime("%H:%M:%S")),
-                "cpu_usage": Pycemaker.__get_cpu_usage__(self),
+        
+        data = {"date": str(date.today()),
+                "time":str(datetime.now().strftime("%H:%M:%S")),
+                "cpu_usage": float(Pycemaker.__get_cpu_usage__(self).strip('%'))/100.0,
                 "jvm_memory_usage": Pycemaker.__get_used_memory__(self)}
         return data
 
@@ -87,7 +89,7 @@ class Pycemaker:
         else:
             col_dst.insert_one(Pycemaker.__get_data__(self))
 
-    def export_data_json(self, dst=None):
+    def export_data_json(self, dst=Path.cwd()):
         """Exporta a coleção instanciada pelo objeto da classe como JSON
 
         Args:
@@ -106,7 +108,7 @@ class Pycemaker:
                 file.write(',')
             file.write(']')
 
-    def export_data_csv(self, dst=None):
+    def export_data_csv(self, dst=Path.cwd()):
         """Exporta a coleção instanciada pelo objeto da classe como CSV
 
         Args:
@@ -119,4 +121,4 @@ class Pycemaker:
 
         docs = pd.DataFrame(cursor)
         docs.pop("_id")
-        docs.to_csv(str(Path(dst, 'pycedata.csv')), index=None)
+        docs.to_csv(Path(dst, 'pycedata.csv'), index=None)

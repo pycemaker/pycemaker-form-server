@@ -35,3 +35,4 @@ build/
 .grafana-8.4.4
 .python
 .pyce-tools/venv/
+venv
