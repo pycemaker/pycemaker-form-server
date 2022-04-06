@@ -1,12 +1,17 @@
 package pycemaker.controller;
 
+import org.apache.coyote.Response;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pycemaker.model.Usuario;
 import pycemaker.repository.UsuarioRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @CrossOrigin
@@ -20,23 +25,22 @@ public class UsuarioController {
     }
 
     //Endpoint de Formulário
-    @CrossOrigin
     @PostMapping("/registrar")
     public Usuario saveUser(@Validated @RequestBody Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
     //Endpoint de listagem
-    @CrossOrigin
     @GetMapping("/usuarios")
     public ResponseEntity getAllUsuarios(){
         return ResponseEntity.ok(this.usuarioRepository.findAll());
     }
 
-    //@GetMapping("/usuario/{id}")
-    //public Optional<Usuario> consultar(@PathVariable("id") Long id){
-        //return usuarioRepository.findById(id);
-    //}
+    @GetMapping("/usuario/{page}-{sizepage}")
+    public ResponseEntity consultar(@PathVariable int page, @PathVariable int sizepage){
+        Pageable firstPage = PageRequest.of(page, sizepage);
+        return ResponseEntity.ok((this.usuarioRepository.findAll(firstPage)).toList());
+    }
 
 
     @GetMapping("/stress")
