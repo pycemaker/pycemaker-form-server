@@ -1,6 +1,4 @@
-#  🐍 Pycemaker - Repositório do Formulário para o cliente 
-
-A aplicaçao front-end foi criada com o objetivo de ser monitorada pelo sistema Pycemaker. O formulário contém os campos "Nome", "Email", "Telefone" e "Senha", sendo todos os campos obrigátorios.
+#  🐍 Pycemaker - Repositório API para Formulário
 
 A aplicação back-end foi desenvolvida com o intuito de ser a base para o sistema Pycemaker. O servidor possui um mapeamento objeto-relacional que permite que criemos tabelas na base de dados para que sejam inicializadas e analisadas as métricas de consumo da aplicação, além de possuir alguns endpoints para que seja criada as interfaces do front-end. 
 
