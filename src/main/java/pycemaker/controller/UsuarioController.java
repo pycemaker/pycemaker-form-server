@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pycemaker.model.Usuario;
@@ -41,6 +43,13 @@ public class UsuarioController {
         Pageable firstPage = PageRequest.of(page, sizepage);
         return ResponseEntity.ok((this.usuarioRepository.findAll(firstPage)).toList());
     }
+
+    @DeleteMapping("/usuario/delete/{id}")
+    public ResponseEntity delete(@PathVariable long id){
+        this.usuarioRepository.deleteById(id);
+        return (ResponseEntity) ResponseEntity.ok("Deletado com sucesso");
+    }
+
 
 
     @GetMapping("/stress")
