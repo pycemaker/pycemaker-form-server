@@ -1,0 +1,7 @@
+{
+  "name": "Pycemaker Form Server",
+  "description": "API da Aplicação Formulário, sendo o alvo de testes e desenvolvimento do Machine Learning",
+  "repository": "https://github.com/pycemaker/pycemaker-form-server",
+  "logo": "https://raw.githubusercontent.com/pycemaker/pycemaker-dashboard-client/main/src/assets/icon.png",
+  "keywords": ["java", "springboot"]
+}
